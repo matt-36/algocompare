@@ -70,10 +70,10 @@
       {/if}
     {/each}
   </div>
-  <button class="btn" on:click={functions[algo]()}>
+  <button class="btn" on:click={() => functions[algo]()}>
     Sort Items
   </button>
-  <button class="btn" on:click|once={functions[99]()}>
+  <button class="btn" on:click={() => functions[99]()}>
     Reset Items
   </button>
 </div>
