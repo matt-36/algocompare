@@ -4,6 +4,7 @@
   }
   
   export let nums: Array<number>;
+  export let numsOG: Array<number>;
   $: scaled = nums.map((x: number) => x/Math.max(...nums)*100);
   export let algo: number;
 
@@ -49,33 +50,54 @@
             }
         }
         selected = null;
+    },
+    99: async () => {
+      nums = [...numsOG]
+      console.log("reset nums", nums)
     }
   }
 </script>
-<div class="container">
+<div class="container" style="height: {10*nums.length}px">
   <span>
     {algos[algo]}
   </span>
   <div class="nums-container">
     {#each scaled as num, i}
       {#if i == selected}
-        <div class="number-bar" style="width:{num}%; background-color: darkblue;"/>
+        <div class="number-bar" style="width:{num}%; background-color: #5B8C5A;"/>
       {:else}
         <div class="number-bar" style="width:{num}%;"/>
       {/if}
     {/each}
   </div>
-  <div class="btn" on:click="{functions[algo]()}">
+  <button class="btn" on:click={functions[algo]()}>
     Sort Items
-  </div>
+  </button>
+  <button class="btn" on:click|once={functions[99]()}>
+    Reset Items
+  </button>
 </div>
 
 
 <style>
+  .btn {
+    background-color: inherit;
+    color: white;
+    font-weight: 600;
+    border-radius: 1em 1em 0 0;
+  }
+  .btn:nth-child(even) {
+    border-radius: 0 0 1em 1em;
+  }
+  .btn:hover {
+    background-color: #5B8C5A;
+  }
   .container {
+    background-color: #292F36;
+    color: #EAEBED;
+    border-radius: 2em;
     display: flex;
     flex-direction: column;
-    background-color: #f9f9f9;
     padding: .5em;
     margin: 1em;
     min-height: 300px;
@@ -90,10 +112,11 @@
     flex-direction: column;
     flex-wrap:nowrap;
     flex: 1 1 auto;
+    margin-bottom: 1em;
   }
   .number-bar {
     margin: .5px;
-    background-color: blue;
+    background-color: #5BA75B;
     min-height: .1px;
     flex: 1 1 auto;
   }

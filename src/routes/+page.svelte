@@ -4,17 +4,18 @@
   let insertionNums = nums.slice();
   let bubbleNums = nums.slice();
   let countNums = nums.slice();
+
+  function sortAll() {}
 </script>
 
 <main>
   <h1>Sorting Algorithms</h1>
-  <div class="sortbtn" on:click=>
-
+  <div class="sortbtn" on:click={sortAll()}>
+    Sort All
   </div>
   <div class="sort-container">
-    <Sort algo={0} nums={insertionNums}/>
-    <Sort algo={1} nums={bubbleNums}/>
-    <Sort algo={2} nums={countNums}/>
+    <Sort algo={0} nums={insertionNums} numsOG={nums} />
+    <Sort algo={1} nums={bubbleNums} numsOG={nums} />
   </div>
 </main>
 
@@ -29,10 +30,10 @@
     margin: 0 auto;
   }
   h1 {
-    color: #ff3e00;
+    color: #5B8C5A;
     text-transform: uppercase;
     font-size: 4rem;
-    font-weight: 100;
+    font-weight: 500;
     line-height: 1.1;
     margin: 2rem auto;
     max-width: 14rem;
