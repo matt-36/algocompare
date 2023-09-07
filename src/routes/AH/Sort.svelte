@@ -1,4 +1,5 @@
 <script lang="ts">
+  
   function sleep(ms: number) {
       return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -8,50 +9,63 @@
   $: scaled = nums.map((x: number) => x/Math.max(...nums)*100);
   export let algo: number;
 
-  let selected: number | null;
+  let sorting: boolean = false;
+  export let selected: number | null;
   let algos: { [id:number] : string } = {
     0: "Insertion Sort",
     1: "Bubble Sort",
     2: "Count Sort"
   }
+  let f: Array<number> = [];
+  function factorial(n: number) : number {
+    if (n == 0 || n == 1)
+      return 1;
+    if (f[n] > 0)
+      return f[n];
+    return f[n] = factorial(n-1) * n;
+  }
   let functions: { [id:number] : Function } = {
     0: async () => {
+        sorting = true;
         console.log("insertionSort started")
         console.log("nums:", nums)
         let size = nums.length;
         let j;
-        for (let i = 1; i < size; i++) {
+        for (let i = 1; i < size && sorting; i++) {
             j = i;
             while ((j > 0) && (nums[j-1] > nums[j])) {
             selected = j - 1;
             let tmp = nums[j-1];
             nums[j-1] = nums[j];
             nums[j] = tmp;
-            await sleep(1000/nums.length)
+            // let fac = Math.sqrt(factorial(nums.length));
+            await sleep(1000/size);
             j--;
             }
         } selected = null;},
     1: async () => {
+        sorting = true;
         console.log("bubbleSort started")
         console.log("nums:", nums)
         let size = nums.length;
         let swapped = true;
         while (swapped) {
             swapped = false;
-            for (let i=1; i < size; i++) {
+            for (let i=1; i < size && sorting; i++) {
                 selected = i;
                 if (nums[i-1] > nums[i]) {
                     let tmp = nums[i-1];
                     nums[i-1] = nums[i];
                     nums[i] = tmp;
                     swapped = true;
-                    await sleep(1000/nums.length)
+                    await sleep(1000/size);
                 }
             }
         }
         selected = null;
     },
     99: async () => {
+      sorting = false;
       nums = [...numsOG]
       console.log("reset nums", nums)
     }
@@ -101,7 +115,9 @@
     padding: .5em;
     margin: 1em;
     min-height: 300px;
+    max-height: 600px;
     min-width: 300px;
+    flex: auto;
   }
   span {
     font-size:large;
@@ -113,11 +129,13 @@
     flex-wrap:nowrap;
     flex: 1 1 auto;
     margin-bottom: 1em;
+    max-height: 500px;
   }
   .number-bar {
     margin: .5px;
     background-color: #5BA75B;
-    min-height: .1px;
+    min-width: 1px;
+    min-height: .5px;
     flex: 1 1 auto;
   }
 </style>
