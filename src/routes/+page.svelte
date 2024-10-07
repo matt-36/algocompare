@@ -1,3 +1,3 @@
-This site is for revision of National 5, Higher, and Advanced Higher computing.
+Select AH to see the SQA Advanced Higher algorithms compared.
 <br/>
 This site uses Nodejs/svelkit+vite for backend, with svelte+TS for UI.
